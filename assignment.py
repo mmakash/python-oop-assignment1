@@ -47,14 +47,53 @@ class Library:
         else:
             print(f"no books available")
     
+    def find_book(self,book_id):
+        for book in self.book_list:
+            if book.book_id == book_id:
+                return book
+        return None
+
 my_library = Library()
 
 book1 = Book(101, "1984", "George Orwell", library=my_library)
 book2 = Book(102, "To Kill a Mockingbird", "Harper Lee", availability=False, library=my_library)
 book3 = Book(103, "The Great Gatsby", "F. Scott Fitzgerald", library=my_library)
 
-# my_library.entry_book(book1)
-# my_library.entry_book(book2)
-print(book1.view_book_info())
-# print(book1.borrowed_book())
-# my_library.show_book()
+
+
+while True:
+    print("\n---library menu---")
+    print("1: view all books")
+    print("2: borrow book")
+    print("3: returned book")    
+    print("4: exit")    
+    click = input("enter your choice(1-4): ")
+
+    if click == "1":
+        my_library.show_book()
+    elif click == "2":
+        try:
+            book_id = int(input("enter book_id to borrow: "))
+            book = my_library.find_book(book_id)
+            if book:
+                print(book.borrowed_book())
+            else:
+                print("book not found")
+        except ValueError:
+            print("invalid input!")
+    elif click == "3":
+        try:
+            book_id = int(input("enter book_id to return: "))
+            book = my_library.find_book(book_id)
+            if book:
+                print(book.returned_book())
+            else:
+                print("book not found")
+        except ValueError:
+            print("Invalid input!")
+
+    elif click == "4":
+        print("existing the library system,goodbye")
+        break
+    else:
+        print("invalid choice , write valid choice")
