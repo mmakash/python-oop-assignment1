@@ -1,10 +1,13 @@
 class Book:
-    def __init__(self,title,author):
+    def __init__(self,book_id,title,author,availability = True):
+        self.book_id = book_id
         self.title = title
         self.author = author
+        self.availability = availability
 
     def __repr__(self):
-        return f"{self.title} by {self.author}"
+        status = "Available" if self.availability else "Not available"
+        return f"Id:{self.book_id}, title: {self.title} by author: {self.author},Status: {self.availability}"
     
 class Library:
     book_list = []
@@ -25,8 +28,8 @@ class Library:
             print(f"no books available")
     
 my_library = Library()
-book1 = Book("hridoye megh","bakibillah saheb")
-book2 = Book("kill your comfort","barish thakur")
+book1 = Book(101, "1984", "George Orwell")
+book2 = Book(102, "To Kill a Mockingbird", "Harper Lee", availability=False)
 my_library.entry_book(book1)
 my_library.entry_book(book2)
 my_library.show_book()
